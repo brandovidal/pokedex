@@ -41,19 +41,15 @@ const searchPokemon = async (event) => {
 
   try {
     const searchText = value.trim().toLowerCase()
-    console.log({ searchText })
-
     if (!searchText) {
       return renderNotFound()
     }
+    
     const response = await fetch(`${API_URL}${searchText}`)
     const pokemon = await response.json()
 
-    enableForm(true)
     renderPokemonData(pokemon)
-    console.log(pokemon)
   } catch (error) {
-    enableForm(true)
     renderNotFound()
   }
 }
@@ -71,7 +67,6 @@ const enableForm = (enable = true) => {
 
 // Events
 const renderPokemonData = (data) => {
-  console.log({ data })
   const sprite = data.sprites.front_default
   const { stats, types } = data
 
@@ -79,16 +74,17 @@ const renderPokemonData = (data) => {
   $pokeImg.setAttribute('src', sprite)
   $pokeId.textContent = `Nº ${data.id}`
 
-  // setCardColor(types)
-  // renderPokemonTypes(types)
-  // renderPokemonStats(stats)
+  setCardColor(types)
+  renderPokemonTypes(types)
+  renderPokemonStats(stats)
+  enableForm(true)
 }
 
 const setCardColor = (types) => {
   const [typeDefault = '', typeSecondary = ''] = types
 
-  const { name: colorDefault } = typeDefault.type
-  const { name: colorSecondary } = typeSecondary.type
+  const colorDefault = typeDefault?.type?.name || ''
+  const colorSecondary = typeSecondary?.type?.name || ''
 
   const colorOne = TYPE_COLORS[colorDefault] || TYPE_COLORS.default
   const colorTwo = TYPE_COLORS[colorSecondary] || TYPE_COLORS.default
@@ -129,6 +125,8 @@ const renderPokemonStats = (stats) => {
 }
 
 const renderNotFound = () => {
+  enableForm(true)
+
   $pokeName.textContent = 'No encontrado'
   $pokeImg.setAttribute('src', 'assets/poke-shadow.png')
   $pokeImg.style.background = '#fff'

@@ -2,7 +2,12 @@
 
 Using HTML, CSS y Javascript
 
-## Script
+### Preview
+
+![Pokedex 1](./src/assets/pokedex-desktop-1.png)
+![Pokedex 2](./src/assets/pokedex-desktop-2.png)
+
+## Scripts
 
 Install packages
 
