@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "servor src index.html 8000 --reload --browse"
+    "dev": "servor docs index.html 8000 --reload --browse"
   },
   "devDependencies": {
     "servor": "^4.0.2"
